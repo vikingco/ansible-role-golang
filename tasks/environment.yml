@@ -1,0 +1,16 @@
+---
+- name: Register home directory for {{ username }}
+  shell: >
+          egrep "^{{ username }}:" /etc/passwd | awk -F: '{ print $6 }'
+  changed_when: false
+  register: user_home
+
+- name: Add Golang environment variables to shell rc files for {{ username }}
+  lineinfile:
+    create: yes
+    dest: "{{ user_home.stdout|trim }}/{{ item }}"
+    insertafter: EOF
+    line: "source /usr/local/bin/goenv.sh"
+  with_items:
+    - .bashrc
+    - .zshrc

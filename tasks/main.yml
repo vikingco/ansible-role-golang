@@ -9,10 +9,16 @@
 - import_tasks: install.yml
   when: installed_go_version.rc > 0 or go_version + ' ' not in installed_go_version.stdout
 
-- name: Add go environment
+- name: Install goenv script
   template:
     src: goenv.sh.j2
-    dest: /etc/profile.d/goenv.sh
+    dest: /usr/local/bin/goenv.sh
     mode: 0755
     owner: root
     group: root
+
+- include_tasks: environment.yml
+  when: go_users is defined
+  with_items: "{{ go_users }}"
+  loop_control:
+    loop_var: username
