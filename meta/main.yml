@@ -1,0 +1,29 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: "Unleashed Technology"
+  description: "Install Golang."
+  company: "Unleashed"
+  license: "license (BSD, MIT)"
+  min_ansible_version: 2.1
+  platforms:
+    - name: EL
+      versions:
+        - 6
+        - 7
+
+    - name: Debian
+      versions:
+        - jessie
+        - stretch
+
+    - name: Ubuntu
+      versions:
+        - trusty
+        - xenial
+
+  galaxy_tags:
+    - go
+    - golang
+    - development

@@ -1,0 +1,6 @@
+#!/bin/sh
+# This is an ansible managed script
+
+export GOROOT="{{ go_install_directory }}"
+export GOPATH="$HOME/go"
+export PATH="${GOROOT}/bin:${GOPATH}/bin:$PATH"

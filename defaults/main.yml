@@ -1,0 +1,11 @@
+---
+arch_mapping:
+  x86_64: amd64
+
+go_version: 1.9.2
+go_checksum: de874549d9a8d8d8062be05808509c09a88a248e77ec14eb77453530829ac02b  # checksum for 1.9.2-linux-amd64
+go_install_directory: /usr/local/go
+go_tar_archive_location: /tmp/go{{ go_version }}.tar.gz
+
+go_download_url: "https://storage.googleapis.com/golang/\
+  go{{ go_version }}.{{ ansible_system|lower }}-{{ arch_mapping[ansible_architecture]|default(ansible_architecture) }}.tar.gz"

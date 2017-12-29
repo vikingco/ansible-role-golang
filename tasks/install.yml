@@ -1,0 +1,30 @@
+---
+- name: Remove old go directory
+  file:
+    path: "{{ go_install_directory }}"
+    state: absent
+
+- name: Create go target install directory
+  file:
+    path: "{{ go_install_directory }}"
+    state: directory
+    mode: 0755
+
+- name: Fetch go
+  get_url:
+    url: "{{ go_download_url }}"
+    dest: "{{ go_tar_archive_location }}"
+    mode: 0644
+    checksum: "sha256:{{ go_checksum }}"
+
+- name: Extract go
+  unarchive:
+    remote_src: yes
+    src: "{{ go_tar_archive_location }}"
+    dest: "{{ go_install_directory }}"
+    extra_opts: "--strip-components=1"
+
+- name: Remove archive
+  file:
+    path: "{{ go_tar_archive_location }}"
+    state: absent

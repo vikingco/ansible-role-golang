@@ -1,0 +1,18 @@
+---
+- name: Check go version
+  command: "{{ go_install_directory }}/bin/go version"
+  register: installed_go_version
+  ignore_errors: yes
+  failed_when: False
+  changed_when: False
+
+- import_tasks: install.yml
+  when: installed_go_version.rc > 0 or go_version + ' ' not in installed_go_version.stdout
+
+- name: Add go environment
+  template:
+    src: goenv.sh.j2
+    dest: /etc/profile.d/goenv.sh
+    mode: 0755
+    owner: root
+    group: root
